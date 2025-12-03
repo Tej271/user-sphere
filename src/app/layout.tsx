@@ -1,9 +1,9 @@
-import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/layout/app-sidebar";
-import "./globals.css";
 import { Header } from "@/components/app-header";
 import { Main } from "@/components/layout/main";
 import { Button } from "@/components/ui/button";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { AppSidebar } from "../components/layout/app-sidebar";
+import "./globals.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
