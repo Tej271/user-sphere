@@ -1,18 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  age: number;
-}
+import { type User, users } from "@/data/users";
 
 interface UserState {
   list: User[];
+  selectedUser: User | null;
 }
 
 const initialState: UserState = {
-  list: [],
+  list: [...users],
+  selectedUser: null,
 };
 
 export const userSlice = createSlice({
@@ -32,8 +28,19 @@ export const userSlice = createSlice({
     setUsers: (state, action: PayloadAction<User[]>) => {
       state.list = action.payload;
     },
+    setSelectedUser: (state, action: PayloadAction<User | null>) => {
+      state.selectedUser = action.payload;
+    },
+    editUser: (state, action: PayloadAction<User>) => {
+      const index = state.list.findIndex((u) => u.id === action.payload.id);
+      if (index !== -1) state.list[index] = action.payload;
+    },
+    deleteUser: (state, action: PayloadAction<number>) => {
+      state.list = state.list.filter((u) => u.id !== action.payload);
+    },
   },
 });
 
-export const { addUser, removeUser, updateUser, setUsers } = userSlice.actions;
+export const { addUser, removeUser, updateUser, setUsers, setSelectedUser, editUser, deleteUser } =
+  userSlice.actions;
 export default userSlice.reducer;

@@ -10,7 +10,6 @@ import { AppSidebar } from "../../../components/layout/app-sidebar";
 import { clearToken, getToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { AppProviders } from "../../app-providers";
 import "@/app/globals.css";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
