@@ -7,7 +7,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  list: [...users],
+  list: [...users.slice(0, 5)],
   selectedUser: null,
 };
 

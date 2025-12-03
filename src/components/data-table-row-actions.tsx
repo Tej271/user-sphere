@@ -13,16 +13,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { useDispatch } from "react-redux";
 import { deleteUser, setSelectedUser } from "@/store/features/userSlice";
 import { type User } from "@/data/users";
+import { useAppDispatch } from "@/store/hooks";
 
 type DataTableRowActionsProps = {
   row: Row<User>;
 };
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <DropdownMenu modal={false}>
