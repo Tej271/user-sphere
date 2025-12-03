@@ -7,7 +7,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 import { AppSidebar } from "../../../components/layout/app-sidebar";
 
-import { getToken } from "@/lib/auth";
+import { clearToken, getToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { AppProviders } from "../../app-providers";
@@ -21,6 +21,11 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     if (!token) router.replace("/login");
   }, []);
+
+  const handleLogout = () => {
+    clearToken();
+    router.replace("/login");
+  };
 
   return (
     <SidebarProvider>
@@ -36,7 +41,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <div className="grid flex-1 text-start text-lg leading-tight">
               <span className="truncate">Hi, Tejas!</span>
             </div>
-            <Button variant={"outline"}>Log Out</Button>
+            <Button variant={"outline"} onClick={handleLogout}>
+              Log Out
+            </Button>
           </div>
         </Header>
 

@@ -12,7 +12,7 @@ interface UserState {
 }
 
 const initialState: UserState = {
-  list: [], // multiple user records stored here
+  list: [],
 };
 
 export const userSlice = createSlice({
