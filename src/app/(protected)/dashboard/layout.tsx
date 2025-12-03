@@ -2,16 +2,16 @@
 
 import { Header } from "@/components/app-header";
 import { Main } from "@/components/layout/main";
-import { Button } from "@/components/ui/button";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import React from "react";
 import { AppSidebar } from "../../../components/layout/app-sidebar";
 
-import { clearToken, getToken } from "@/lib/auth";
+import { getToken } from "@/lib/auth";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import "@/app/globals.css";
 import { UsersProvider } from "@/hooks/users-provider";
+import { ProfileDropdown } from "@/components/profile-dropdown";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const router = useRouter();
@@ -21,11 +21,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
     if (!token) router.replace("/login");
   }, []);
-
-  const handleLogout = () => {
-    clearToken();
-    router.replace("/login");
-  };
 
   return (
     <SidebarProvider>
@@ -42,9 +37,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <div className="grid flex-1 text-start text-lg leading-tight">
                 <span className="truncate">Hi, Tejas!</span>
               </div>
-              <Button variant={"outline"} onClick={handleLogout}>
-                Log Out
-              </Button>
+              <ProfileDropdown />
             </div>
           </Header>
 
