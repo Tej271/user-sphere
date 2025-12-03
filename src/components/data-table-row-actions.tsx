@@ -16,13 +16,16 @@ import {
 import { deleteUser, setSelectedUser } from "@/store/features/userSlice";
 import { type User } from "@/data/users";
 import { useAppDispatch } from "@/store/hooks";
+import { useUsers } from "@/hooks/users-provider";
 
 type DataTableRowActionsProps = {
   row: Row<User>;
 };
 
 export function DataTableRowActions({ row }: DataTableRowActionsProps) {
-  const dispatch = useAppDispatch();
+  const { setOpen, setCurrentRow } = useUsers();
+
+  const user = row.original;
 
   return (
     <DropdownMenu modal={false}>
@@ -34,7 +37,12 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onClick={() => dispatch(setSelectedUser(row.original))}>
+        <DropdownMenuItem
+          onClick={() => {
+            setCurrentRow(user);
+            setOpen("edit");
+          }}
+        >
           Edit
           <DropdownMenuShortcut>
             <UserPen size={16} />
@@ -44,7 +52,10 @@ export function DataTableRowActions({ row }: DataTableRowActionsProps) {
         <DropdownMenuSeparator />
 
         <DropdownMenuItem
-          onClick={() => dispatch(deleteUser(row.original.id))}
+          onClick={() => {
+            setCurrentRow(user);
+            setOpen("delete");
+          }}
           className="text-red-600 font-medium"
         >
           Delete

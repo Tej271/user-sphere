@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/form";
 import { SelectDropdown } from "@/components/select-dropdown";
 import type { User } from "@/data/users";
-import { addUser } from "@/store/features/userSlice";
+import { addUser, editUser } from "@/store/features/userSlice";
 import { useAppDispatch } from "@/store/hooks";
 
 const roles = ["admin", "editor", "viewer"] as const;
@@ -54,12 +54,15 @@ export function UsersActionDialog({ currentRow, open, onOpenChange }: UserAction
   });
 
   const onSubmit = (data: UserForm) => {
-    console.log(isEdit ? "Edited User:" : "New User:", data);
     form.reset();
     onOpenChange(false);
-    dispatch(
-      addUser({ id: Date.now(), createdAt: new Date().toISOString().split("T")[0], ...data })
-    );
+    if (!isEdit) {
+      dispatch(
+        addUser({ id: Date.now(), createdAt: new Date().toISOString().split("T")[0], ...data })
+      );
+    } else {
+      dispatch(editUser({ ...currentRow, ...data }));
+    }
   };
 
   return (

@@ -18,13 +18,6 @@ export const userSlice = createSlice({
     addUser: (state, action: PayloadAction<User>) => {
       state.list.push(action.payload);
     },
-    removeUser: (state, action: PayloadAction<number>) => {
-      state.list = state.list.filter((user) => user.id !== action.payload);
-    },
-    updateUser: (state, action: PayloadAction<User>) => {
-      const index = state.list.findIndex((u) => u.id === action.payload.id);
-      if (index !== -1) state.list[index] = action.payload;
-    },
     setUsers: (state, action: PayloadAction<User[]>) => {
       state.list = action.payload;
     },
@@ -41,6 +34,5 @@ export const userSlice = createSlice({
   },
 });
 
-export const { addUser, removeUser, updateUser, setUsers, setSelectedUser, editUser, deleteUser } =
-  userSlice.actions;
+export const { addUser, setUsers, setSelectedUser, editUser, deleteUser } = userSlice.actions;
 export default userSlice.reducer;

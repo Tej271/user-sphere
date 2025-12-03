@@ -8,6 +8,8 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ConfirmDialog } from "@/components/confirm-dialog";
 import { type User } from "@/data/users";
+import { deleteUser } from "@/store/features/userSlice";
+import { useAppDispatch } from "@/store/hooks";
 
 type UserDeleteDialogProps = {
   open: boolean;
@@ -17,12 +19,14 @@ type UserDeleteDialogProps = {
 
 export function UsersDeleteDialog({ open, onOpenChange, currentRow }: UserDeleteDialogProps) {
   const [value, setValue] = useState("");
+  const dispatch = useAppDispatch();
 
   const handleDelete = () => {
-    if (value.trim() !== currentRow.username) return;
+    if (value.trim() !== currentRow.name) return;
 
     onOpenChange(false);
     showSubmittedData(currentRow, "The following user has been deleted:");
+    dispatch(deleteUser(currentRow.id));
   };
 
   return (
@@ -30,7 +34,7 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: UserDelete
       open={open}
       onOpenChange={onOpenChange}
       handleConfirm={handleDelete}
-      disabled={value.trim() !== currentRow.username}
+      disabled={value.trim() !== currentRow.name}
       title={
         <span className="text-destructive">
           <AlertTriangle className="stroke-destructive me-1 inline-block" size={18} /> Delete User
@@ -39,7 +43,7 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: UserDelete
       desc={
         <div className="space-y-4">
           <p className="mb-2">
-            Are you sure you want to delete <span className="font-bold">{currentRow.username}</span>
+            Are you sure you want to delete <span className="font-bold">{currentRow.name}</span>
             ?
             <br />
             This action will permanently remove the user with the role of{" "}
@@ -48,11 +52,11 @@ export function UsersDeleteDialog({ open, onOpenChange, currentRow }: UserDelete
           </p>
 
           <Label className="my-2">
-            Username:
+            Name:
             <Input
               value={value}
               onChange={(e) => setValue(e.target.value)}
-              placeholder="Enter username to confirm deletion."
+              placeholder="Enter complete name to confirm deletion."
             />
           </Label>
 
