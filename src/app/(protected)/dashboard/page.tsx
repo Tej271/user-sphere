@@ -12,10 +12,13 @@ export default function DashboardPage() {
   const { setOpen } = useUsers();
 
   return (
-    <div>
-      <Button className="space-x-1" onClick={() => setOpen("add")}>
-        <span>Add User</span> <UserPlus size={18} />
-      </Button>
+    <div className="space-y-4">
+      <div className="flex justify-end">
+        <Button className="space-x-1" onClick={() => setOpen("add")}>
+          <span>Add User</span> <UserPlus size={18} />
+        </Button>
+      </div>
+
       <UsersTable data={list} />
       <UsersDialogs />
     </div>

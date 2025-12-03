@@ -28,8 +28,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ArrowDownUp } from "lucide-react";
 import { usersColumns } from "./users-columns";
+import { Button } from "./ui/button";
 
 declare module "@tanstack/react-table" {
   interface ColumnMeta<TData extends unknown, TValue> {
@@ -154,7 +154,7 @@ export default function UsersTable({ data }: { data: User[] }) {
           ))}
         </TableBody>
       </Table>
-      <div className="flex items-center gap-2">
+      {/* <div className="flex items-center gap-2">
         <button
           className="border rounded p-1"
           onClick={() => table.previousPage()}
@@ -182,6 +182,48 @@ export default function UsersTable({ data }: { data: User[] }) {
             </option>
           ))}
         </select>
+      </div> */}
+      <div className="flex items-center gap-3 mt-4">
+        {/* Prev Page */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          &lt;
+        </Button>
+
+        {/* Next Page */}
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          &gt;
+        </Button>
+
+        <span className="text-sm text-muted-foreground">
+          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+        </span>
+
+        {/* Page Size Selector */}
+        <Select
+          value={String(table.getState().pagination.pageSize)}
+          onValueChange={(value) => table.setPageSize(Number(value))}
+        >
+          <SelectTrigger className="w-[120px]">
+            <SelectValue placeholder="Rows" />
+          </SelectTrigger>
+          <SelectContent>
+            {[10, 20, 30].map((size) => (
+              <SelectItem key={size} value={String(size)}>
+                Show {size}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
     </div>
   );
