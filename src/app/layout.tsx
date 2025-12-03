@@ -1,39 +1,11 @@
-import { Header } from "@/components/app-header";
-import { Main } from "@/components/layout/main";
-import { Button } from "@/components/ui/button";
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { AppSidebar } from "../components/layout/app-sidebar";
-
-import { Provider } from "react-redux";
-import { store } from "@/store";
 import "./globals.css";
+import { AppProviders } from "./app-providers";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <Provider store={store}>
-          <SidebarProvider>
-            <AppSidebar />
-
-            <SidebarInset>
-              <Header>
-                <div className="grid flex-1 text-start text-sm leading-tight">
-                  <span className="truncate font-semibold">User MIS</span>
-                </div>
-
-                <div className="ms-auto flex items-center space-x-4">
-                  <div className="grid flex-1 text-start text-lg leading-tight">
-                    <span className="truncate">Hi, Tejas!</span>
-                  </div>
-                  <Button variant={"outline"}>Log Out</Button>
-                </div>
-              </Header>
-
-              <Main>{children}</Main>
-            </SidebarInset>
-          </SidebarProvider>
-        </Provider>
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

@@ -1,7 +1,14 @@
+"use client";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+import { getToken } from "@/lib/auth";
+
 export default function Home() {
-  return (
-    <div className="">
-      <h1>Home Page</h1>
-    </div>
-  );
+  const router = useRouter();
+
+  useEffect(() => {
+    getToken() ? router.replace("/dashboard") : router.replace("/login");
+  }, []);
+
+  return null;
 }
