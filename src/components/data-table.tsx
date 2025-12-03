@@ -72,7 +72,7 @@ export function Filter({ column }: { column: Column<any, unknown> }) {
 
   if (type === "select") {
     const options = COLUMN_SELECT_OPTIONS[column.id] ?? [];
-    console.log("OPTSIONS", options);
+
     return (
       <Select value={filterValue ?? undefined} onValueChange={onChange}>
         <SelectTrigger className="w-full h-9">
@@ -90,7 +90,7 @@ export function Filter({ column }: { column: Column<any, unknown> }) {
       </Select>
     );
   }
-  console.log("FILTER VALUE", filterValue);
+
 
   return (
     <Input

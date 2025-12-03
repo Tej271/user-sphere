@@ -34,9 +34,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
 
             <div className="ms-auto flex items-center space-x-4">
-              <div className="grid flex-1 text-start text-lg leading-tight">
-                <span className="truncate">Hi, Tejas!</span>
-              </div>
               <ProfileDropdown />
             </div>
           </Header>
