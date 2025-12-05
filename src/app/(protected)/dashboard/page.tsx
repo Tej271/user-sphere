@@ -1,14 +1,14 @@
 "use client";
 
 import { UserPlus } from "lucide-react";
-import { useSelector } from "react-redux";
 import UsersTable from "@/components/data-table";
 import { Button } from "@/components/ui/button";
 import { useUsers } from "@/hooks/users-provider";
 import { UsersDialogs } from "@/components/users-dialog";
+import { useAppSelector } from "@/store/hooks";
 
 export default function DashboardPage() {
-  const { list } = useSelector((state: any) => state.users);
+  const { list } = useAppSelector((state: any) => state.users);
   const { setOpen } = useUsers();
 
   return (
